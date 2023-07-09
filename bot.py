@@ -19,3 +19,4 @@ async def send_echo(msg: types.Message):
 
 if __name__ == '__main__':
     executor.start_polling(dp)
+    lol
