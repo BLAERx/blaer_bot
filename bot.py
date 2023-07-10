@@ -1,21 +1,15 @@
 from aiogram import Bot, executor, Dispatcher, types
+from tk import TOKEN_API
+from filters import EmailCheck
 
-token = '6348121343:AAGMw-T3C7HBWG1NxLFivXvllgfK6Y4bAvo'
 
-bot = Bot(token='6348121343:AAGMw-T3C7HBWG1NxLFivXvllgfK6Y4bAvo')
+bot = Bot(token=TOKEN_API)
 dp = Dispatcher(bot=bot)
 
 
-@dp.message_handler(commands=['help', 'start'])
-async def cmd_start(msg: types.Message):
-    await msg.answer('Приветик')
-
-
-@dp.message_handler()
-async def send_echo(msg: types.Message):
-    print(msg)
-    await msg.answer(msg.text)
-
+@dp.message_handler(EmailCheck())
+async def check_email(msg: types.Message) -> None:
+    await msg.answer('Works!')
 
 if __name__ == '__main__':
     executor.start_polling(dp)
